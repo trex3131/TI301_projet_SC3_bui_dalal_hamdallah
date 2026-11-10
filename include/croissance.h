@@ -14,5 +14,8 @@
  * @return 1 si le bourgeon pousse, 0 sinon
  */
 int canGrow(float);
+int  howManyBranches(float p1, float p2);
+void growBud(t_arbre *a, t_rameau *b, int n, int saison);
+void growTree(t_arbre *a, int nbSaisons);
 
 #endif //FICHIERS_FOURNIS_CROISSANCE_H
