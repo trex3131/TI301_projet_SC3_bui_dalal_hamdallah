@@ -27,7 +27,8 @@ add_executable(etape_1
         src/arbre.c include/arbre.h
         utils/src/arbres_utils.c utils/include/arbres_utils.h
         utils/src/dessin.c utils/include/dessin.h
-        utils/src/alea.c utils/include/alea.h)
+        utils/src/alea.c utils/include/alea.h
+        src/croissance_lumière.cpp)
 
 # étape 2 : la pousse d'un arbre en pleine lumière (fonctions de croissance, file de rameaux)
 add_executable(etape_2
@@ -37,7 +38,8 @@ add_executable(etape_2
         src/croissance.c include/croissance.h
         utils/src/arbres_utils.c utils/include/arbres_utils.h
         utils/src/dessin.c utils/include/dessin.h
-        utils/src/alea.c utils/include/alea.h)
+        utils/src/alea.c utils/include/alea.h
+        include/croissance_lumière.h)
 
 # étape 4 : sauvez les arbres ! (sauvegarde d'un arbre dans un fichier, par un parcours en largeur)
 add_executable(etape_4
