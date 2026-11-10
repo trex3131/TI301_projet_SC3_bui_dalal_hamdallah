@@ -29,6 +29,24 @@ void saveTree(t_arbre a, char *nom_fichier)
     // saveTree ne modifie pas l'arbre et ne le libère pas : il sert encore après la sauvegarde
     // à la fin du parcours, la file est vide et dequeue a déjà libéré ses cellules : rien d'autre à libérer
 
+    t_queue q = createEmptyQueue();
+    t_rameau *r, *fils;
+
+    fprintf(f, "%.2f %.2f\n", a.pied->x, a.pied->y);
+    enqueue(&q, a.pied);
+
+    while (!isEmptyQueue(q))
+    {
+        r = dequeue(&q);
+        for (int i = 0; i < r->nb_fils; i++)
+        {
+            fils = r->p_fils[i];
+            fprintf(f, "%d %d %d %.2f %.2f %d %d\n",
+                    fils->num, fils->saison, r->num, fils->dir, fils->longueur, fils->gen, (int) fils->etat);
+            enqueue(&q, fils);
+        }
+    }
+
     // fermeture du fichier (fourni, à ne pas modifier)
     fclose(f);
 }
