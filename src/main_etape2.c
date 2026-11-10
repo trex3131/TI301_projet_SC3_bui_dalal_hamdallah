@@ -25,7 +25,6 @@ int main(void)
     }
     printf("howManyBranches(70, 25) : 1 -> %d fois, 2 -> %d fois, 3 -> %d fois\n", compte[1], compte[2], compte[3]);
     printf("attendu, a 2000 pres   : 1 -> 700000 fois, 2 -> 250000 fois, 3 -> 50000 fois\n\n");
-
     // 2. growBud : le pied d'un arbre donne 3 rameaux à la saison 1
     a = createTree(0, 1, 1);
     growBud(&a, a.pied, 3, 1);
@@ -69,3 +68,4 @@ int main(void)
 
     return 0;
 }
+
