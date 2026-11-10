@@ -36,6 +36,7 @@ add_executable(etape_2
         src/arbre.c include/arbre.h
         src/queue.c include/queue.h
         src/croissance.c include/croissance.h
+        src/croissance_step.c include/croissance_step.h
         utils/src/arbres_utils.c utils/include/arbres_utils.h
         utils/src/dessin.c utils/include/dessin.h
         utils/src/alea.c utils/include/alea.h

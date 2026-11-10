@@ -11,6 +11,25 @@
 #include "alea.h"
 #include "queue.h"
 #include "croissance.h"
+#include "croissance_step.h"
+
+/* renvoie 1 si les deux arbres (à partir de r1 et r2) sont identiques, rameau par rameau, 0 sinon */
+static int sameBranches(t_rameau *r1, t_rameau *r2)
+{
+    if (r1->num != r2->num || r1->saison != r2->saison || r1->gen != r2->gen || r1->etat != r2->etat
+        || r1->dir != r2->dir || r1->longueur != r2->longueur || r1->nb_fils != r2->nb_fils)
+    {
+        return 0;
+    }
+    for (int i = 0; i < r1->nb_fils; i++)
+    {
+        if (!sameBranches(r1->p_fils[i], r2->p_fils[i]))
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
 
 int main(void)
 {
@@ -25,6 +44,7 @@ int main(void)
     }
     printf("howManyBranches(70, 25) : 1 -> %d fois, 2 -> %d fois, 3 -> %d fois\n", compte[1], compte[2], compte[3]);
     printf("attendu, a 2000 pres   : 1 -> 700000 fois, 2 -> 250000 fois, 3 -> 50000 fois\n\n");
+
     // 2. growBud : le pied d'un arbre donne 3 rameaux à la saison 1
     a = createTree(0, 1, 1);
     growBud(&a, a.pied, 3, 1);
@@ -66,6 +86,15 @@ int main(void)
     drawSvg(c.pied, "output/etape2_moyen.svg");
     animateSvg(c.pied, "output/etape2_moyen_animation.svg", 0.6);
 
+    // 6. pas à pas : 8 appels à growTreeStep doivent donner le même arbre que growTree(8), graine 3
+    t_arbre_step s = createTreeStep(0, 1, 3);
+    for (int i = 0; i < 8; i++)
+    {
+        growTreeStep(&s);
+    }
+    clearBuds(&s);
+    printf("growTreeStep x 8, graine 3 : %d rameaux, saison %d, identique a growTree(8) ? %s\n",
+           s.arbre.nb_rameaux, s.saison, sameBranches(s.arbre.pied, c.pied) ? "oui" : "NON");
+
     return 0;
 }
-
