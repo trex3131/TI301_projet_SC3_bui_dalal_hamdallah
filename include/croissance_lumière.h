@@ -1,8 +1,0 @@
-//
-// Created by TT on 10/11/2026.
-//
-
-#ifndef FORET_CROISSANCE_LUMIÈRE_H
-#define FORET_CROISSANCE_LUMIÈRE_H
-
-#endif //FORET_CROISSANCE_LUMIÈRE_H
