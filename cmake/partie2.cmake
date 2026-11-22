@@ -40,8 +40,11 @@ add_executable(p2_etape_6 src/main_p2_etape6.c
         src/sauver_foret.c include/sauver_foret.h
         ${PARTIE2_FORET} ${PARTIE2_ARBRE} ${PARTIE1})
 
+# option : la grille recalculée après chaque arbre, comparée à la version normale
+add_executable(p2_option_grille src/main_p2_option_grille.c ${PARTIE2_FORET} ${PARTIE2_ARBRE} ${PARTIE1})
+
 # réglages communs aux cibles de la partie 2 (les mêmes que pour la partie 1)
-foreach (cible p2_etape_1 p2_etape_2 p2_etape_3 p2_etape_4 p2_etape_5 p2_etape_6)
+foreach (cible p2_etape_1 p2_etape_2 p2_etape_3 p2_etape_4 p2_etape_5 p2_etape_6 p2_option_grille)
     target_include_directories(${cible} PRIVATE include utils/include)
 
     target_compile_options(${cible} PRIVATE -Wall -Wextra)
