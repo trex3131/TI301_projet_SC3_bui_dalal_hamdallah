@@ -299,3 +299,40 @@ void histoToSVG(int effectifs[], int nb_classes, double min, double largeur, con
 }
 
 /* ---------------------------------------------------------------- à compléter : vos fonctions, à partir d'ici */
+
+int *computeHistograme(double v[], int nb_classes, double min, double largeur) {
+    double min = v[0];
+    double max = v[0];
+
+    for (int i = 1; i < nb_classes; i++) {
+        if (v[i] < min) {
+            min = v[i];
+        }
+        if (v[i] > max) {
+            max = v[i];
+        }
+    }
+    double largeur = (max - min)/ nb_classes;
+
+    int *effectifs = calloc(nb_classes, sizeof(int));
+    if (effectifs == NULL) {
+        printf("CRITICAL ERROR : cannot allocate histogram\n");
+        exit(-1);
+    }
+    for (int i = 0; i < n; i++) {
+        int c;
+        if (largeur == 0.0) {
+            c = 0;
+        }
+        else {
+            c = (int) ((v[i]-min)/largeur);
+            if (c >= nb_classes) {
+                c = nb_classes - 1;
+            }
+        }
+        effectifs[c]++;
+    }
+    *p_min = min;
+    *p_largeur = largeur;
+    return effectifs;
+}

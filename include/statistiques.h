@@ -87,4 +87,8 @@ void histoToSVG(int effectifs[], int nb_classes, double min, double largeur, con
 
 /* ---------------------------------------------------------------- à compléter : vos prototypes, à partir d'ici */
 
+int *computeHistograme(double v[], int n, int nb_classes, double *p_min, double *_largeur);
+
+void displayHistogram(double effectifs[], int nb_classes, double min, double largeur);
+
 #endif //FORET_STATISTIQUES_H
