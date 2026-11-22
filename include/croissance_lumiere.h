@@ -22,4 +22,11 @@ int canGrowInLight(double lumiere);
 
 /* ---------------------------------------------------------------- à compléter : vos prototypes, à partir d'ici */
 
+/***
+ * @brief tire au hasard le nombre de nouveaux rameaux d'un bourgeon qui pousse, selon la table de pousse
+ * @param lumiere : lumière reçue par le bourgeon (au moins 0,15, sinon il ne pousse pas)
+ * @return 1, 2 ou 3
+ */
+int howManyBranchesInLight(double lumiere);
+
 #endif //FORET_CROISSANCE_LUMIERE_H

@@ -53,3 +53,27 @@ int canGrowInLight(double lumiere)
 }
 
 /* ---------------------------------------------------------------- à compléter : vos fonctions, à partir d'ici */
+
+int howManyBranchesInLight(double lumiere)
+{
+    float pleine[3] = {70, 25, 5};
+    float moyenne[2] = {85, 15};
+    float faible[1] = {100};
+    int res;
+
+    // un seul tirage, quelle que soit la lumière ; drawFromTable renvoie un numéro de tranche, à partir de 0
+    if (lumiere >= 0.7)
+    {
+        res = drawFromTable(pleine, 3) + 1;
+    }
+    else if (lumiere >= 0.4)
+    {
+        res = drawFromTable(moyenne, 2) + 1;
+    }
+    else
+    {
+        res = drawFromTable(faible, 1) + 1;
+    }
+
+    return res;
+}

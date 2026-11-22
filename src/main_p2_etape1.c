@@ -17,6 +17,10 @@ static void measureFile(const char *nom_fichier)
            nom_fichier, countBranches(a.pied), a.nb_rameaux, computeHeight(a.pied), computeTop(a.pied),
            computeXMax(a.pied) - computeXMin(a.pied), countBuds(a.pied));
     // option computeExtension : à vous d'ajouter son test ici, elle doit donner la même extension
+    float xmin = a.pied->x, xmax = a.pied->x;
+    computeExtension(a.pied, &xmin, &xmax);
+    printf("%-22s   computeExtension : %.3f (%s)\n", "", xmax - xmin,
+           xmin == computeXMin(a.pied) && xmax == computeXMax(a.pied) ? "mêmes valeurs" : "DIFFÉRENT");
     freeBranches(a.pied);
 
     return;

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "foret.h"
 #include "arbres_utils.h"
+#include "arbre.h"
 
 /***
  * @brief affiche la grille d'occupation, la rangée la plus haute en premier
@@ -73,6 +74,60 @@ int main(void)
 
     // À ÉCRIRE : deux ou trois autres cas construits à la main, dont un rameau d'altitude supérieure à HMAX
     //    (il est compté dans la dernière rangée)
+
+    // cas 1 : un pied vertical en (2,5 ; 3) puis deux fils, l'un qui sort à gauche de la forêt, l'autre à droite
+    //         forêt de 2 arbres, E = 3 (6 colonnes), 5 rangées
+    {
+        t_foret h = createForest(2, 3, 5, 0.25, 20000);
+        t_arbre t = createTree(2.5f, 3, 1);
+
+        t.pied->p_fils = malloc(2 * sizeof(t_rameau *));
+        t.pied->nb_fils = 2;
+        t.pied->p_fils[0] = growBranch(&t, t.pied, 1, -80, 3.0f);   // x = 2,5 - 3 sin(80°) = -0,454 : colonne 5
+        t.pied->p_fils[1] = growBranch(&t, t.pied, 1, 80, 4.0f);    // x = 2,5 + 4 sin(80°) = 6,439 : colonne 0
+        addTreeToGrid(&h, t.pied);
+        printf("cas 1 : pied (3 ; 2) = %d, fils gauche (3 ; 5) = %d, fils droit (3 ; 0) = %d (attendu : 1 1 1)\n",
+               h.occupation[3][2], h.occupation[3][5], h.occupation[3][0]);
+        freeBranches(t.pied);
+        freeArrays(&h);
+    }
+
+    // cas 2 : un rameau d'altitude 12,5 >= HMAX = 5, et un autre pile à l'altitude 5 : dernière rangée (4)
+    {
+        t_foret h = createForest(1, 4, 5, 0.25, 20000);
+        t_arbre t = createTree(1.5f, 12.5f, 1);
+        t_arbre u = createTree(1.2f, 5.0f, 1);
+        int total = 0;
+
+        addTreeToGrid(&h, t.pied);
+        addTreeToGrid(&h, u.pied);
+        for (int r = 0; r < h.HMAX; r++)
+        {
+            for (int c = 0; c < h.C; c++)
+            {
+                total += h.occupation[r][c];
+            }
+        }
+        printf("cas 2 : case (4 ; 1) = %d, somme des compteurs = %d (attendu : 2 2)\n", h.occupation[4][1], total);
+        freeBranches(t.pied);
+        freeBranches(u.pied);
+        freeArrays(&h);
+    }
+
+    // cas 3 : bornes des cases (6 colonnes) : x = 3 exactement est dans la colonne 3, y = 1 exactement dans la rangée 1 ;
+    //         x = -6 (multiple de C) revient dans la colonne 0
+    {
+        t_foret h = createForest(2, 3, 4, 0.25, 20000);
+        t_arbre t = createTree(3.0f, 1.0f, 1);
+        t_arbre u = createTree(-6.0f, 0.5f, 1);
+
+        addTreeToGrid(&h, t.pied);
+        addTreeToGrid(&h, u.pied);
+        printf("cas 3 : case (1 ; 3) = %d, case (0 ; 0) = %d (attendu : 1 1)\n", h.occupation[1][3], h.occupation[0][0]);
+        freeBranches(t.pied);
+        freeBranches(u.pied);
+        freeArrays(&h);
+    }
 
     return 0;
 }
