@@ -336,3 +336,40 @@ int *computeHistograme(double v[], int nb_classes, double *p_min, double *p_larg
     *p_largeur = largeur;
     return effectifs;
 }
+
+void displayHistogram(int effectifs[], int nb_classes, double min, double largeur)
+{
+    int max_eff = 0;
+
+    for (int i = 0; i < nb_classes; i++)
+    {
+        if (effectifs[i] > max_eff)
+        {
+            max_eff = effectifs[i];
+        }
+    }
+
+    for (int i = 0; i < nb_classes; i++)
+    {
+        double borne_gauche = min + i * largeur;
+        double borne_droite = min + (i + 1) * largeur;
+        char ferme = (i == nb_classes - 1) ? ']' : '[';
+
+        int longueur;
+        if (max_eff == 0)
+        {
+            longueur = 0;
+        }
+        else
+        {
+            longueur = (int) round((double) effectifs[i] * 50.0 / max_eff);
+        }
+
+        printf("[%9.3f ; %9.3f%c %6d ", borne_gauche, borne_droite, ferme, effectifs[i]);
+        for (int k = 0; k < longueur; k++)
+        {
+            putchar('#');
+        }
+        putchar('\n');
+    }
+}
