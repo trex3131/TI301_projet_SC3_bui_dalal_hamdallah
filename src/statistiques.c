@@ -300,7 +300,7 @@ void histoToSVG(int effectifs[], int nb_classes, double min, double largeur, con
 
 /* ---------------------------------------------------------------- à compléter : vos fonctions, à partir d'ici */
 
-int *computeHistograme(double v[], int nb_classes, double min, double largeur) {
+int *computeHistograme(double v[], int nb_classes, double *p_min, double *p_largeur) {
     double min = v[0];
     double max = v[0];
 
